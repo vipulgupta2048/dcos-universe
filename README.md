@@ -2,13 +2,12 @@
 <h1 align="center">Aqua packages for DC/OS</h1>
 <div align="center">
     <img src="https://media.licdn.com/dms/image/C4E0BAQE3VDX3-CraIw/company-logo_200_200/0?e=2159024400&v=beta&t=JlFS2weo0ZUVfyL9YFFUWEhEutltl6W9DG3Ef6UAeEg" />
-    <img height="185px" width="250px" src="https://mesosphere.com/wp-content/uploads/2016/04/logo-horizontal-styled.png" />
 </div>
 
-This is an example configuration of an Aqua package repo for DC/OS, but this should not be used directly. Instead, clone this and customize it for your environment. Test thoroughly in non-production environment for your own use.
+This is an example configuration of an Aqua package repo for DC/OS, but this should not be used directly. Instead, clone this and customize it for your environment. Test thoroughly in a non-production environment for your own use.
 
 ## Contents
-- [Quick Deployment Walk-through](#quick-deployment-walk-through)
+- [Quick Deployment Walk-through](#quick-deployment-walkthrough)
   - [Step one: Duplicate this GitHub repository](#step-one-duplicate-this-github-repository)
   - [Step two: Add Aqua repository to DC/OS](#step-two-add-aqua-repository-to-dcos)
   - [Step three: Deploy database](#step-three-deploy-database)
@@ -30,7 +29,7 @@ This will walk through a complete deployment of Aqua console, gateway, and agent
 
 ## Step one: Duplicate this GitHub repository
 
-Clone this GitHub repository for your own change control management. Replace our github repo location with your own. Alternatively, you can upload your own zip file to some alternate location. 
+Clone this GitHub repository for your own change control management. Replace our GitHub repo location with your own. Alternatively, you can upload your own zip file to some alternate location. 
 
 
 ## Step two: Add Aqua repository to DC/OS
@@ -41,12 +40,12 @@ Add repository to DC/OS user interface by logging into DC/OS interface and brows
 
 Include these details:
 * Name: AquaSecurity
-* URL: Zip file URL from repository in step one. Example, for this repo it would be `https://github.com/aquasecurity/dcos-universe/archive/master.zip`
+* URL: Zip file URL from the repository in step one. Example, for this repo it would be `https://github.com/aquasecurity/dcos-universe/archive/master.zip`
 * Priority: 1 
 
 Click 'Add' to store it.
 
-Browse to 'Universe' section from left hand menu. You should now have new packages:
+Browse to 'Universe' section from left-hand menu. You should now have new packages:
 
 ![Universe packages](./images/aqua4.0-dcos-tile.png)
 
@@ -60,7 +59,7 @@ Change the service name to 'aqua-db':
 
 ![aqua-db](./images/aqua4.0-dcos-dbname.png)
 
-You should set up persistent storage on the 'storage' section in left hand menu.
+You should set up persistent storage on the 'storage' section in left-hand menu.
 
 Click 'Review and Install' and then 'Install' to deploy the database.
 
@@ -76,17 +75,17 @@ At a minimum, you will need to enter a license key.
 
 ![aqua-web license](./images/aqua4.0-dcos-license.png)
 
-You will also need to decide how you will get the images into the environment. The Aqua images are hosted in private Docker Hub repositories, however you are free to push them to an internal registry if you like (this is a common enterprise scenerio).
+You will also need to decide how you will get the images into the environment. The Aqua images are hosted in private Docker Hub repositories, however, you are free to push them to an internal registry if you like (this is a common enterprise scenario).
 
 DC/OS and Marathon has some interesting behavior around authentication to private registries. You can see this documented [here](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html).
 
 Essentially, there are three options:
 - Push images to a registry that does not require authentication and then specify the image name in configuration settings.
-- Pre-pull the images on each server. Images will run from cache this way so there is no need to pull them again. Credentials can be removed after pull.
+- Pre-pull the images on each server. Images will run from cache this way so there is no need to pull them again. Credentials can be removed after the pull.
 - Create and distribute a docker config tarball per the [Marathon documentation](https://mesosphere.github.io/marathon/docs/native-docker-private-registry.html) with a credential to Docker Hub that will allow access to the images.
 - Note: An example helper script named deployDockerCreds.sh is located in the ./scripts directory. Edit this script to match your environment.
 
-The default option assumes use of pre-pulled images, but you can change the image name to include your registry or enable the docker config file and specify it's location on the 'docker' tab:
+The default option assumes the use of pre-pulled images, but you can change the image name to include your registry or enable the docker config file and specify it's location on the 'docker' tab:
 
 ![aqua-web docker configuration](./images/aqua4.0-dcos-dockerpull.png)
 
@@ -94,9 +93,9 @@ This screen will be the same for other images as well.
 
 Other settings like the default passwords and custom database hostnames can be set on the other tabs.
 
-When configuration is set, click 'Review and Install' and then 'Install' to deploy aqua-web.
+When the configuration is set, click 'Review and Install' and then 'Install' to deploy aqua-web.
 
-When you mouse over 'aqua-web' in the Services list, an external link icon will appear that will send you to the login page. Login here will be username and password. Validate that the aqua-web is running before continuing. 
+When you mouse over 'aqua-web' in the Services list, an external link icon will appear that will send you to the login page. Login here will be the username and password. Validate that the aqua-web is running before continuing. 
 
 ## Step five: Deploy aqua-gateway
 
@@ -122,7 +121,7 @@ You can also customize the same docker deployment options and other aqua config 
 
 Click back through to Services -> aqua-web, and then click "Open Service" to get the login page for the aqua-web. 
 
-Login, and click the 'Hosts' section on the left hand side of the page. You should see the agents connected.
+Login, and click the 'Hosts' section on the left-hand side of the page. You should see the agents connected.
 
 ![Hosts list](./images/aqua4.0-dcos-host.png)
 
@@ -150,13 +149,13 @@ Click Review and Install, and then Install to deploy.
 
 You can verify that the scanners are deployed by going back to the Aqua console and browsing to Images -> Scan Queue (at top right, with arrow, may say "Scan Queue is empty" if there are no scans in progress).
 
-The scanners will be listed on the right-hand side. By default there will be 1 scanner included in aqua web. If you added three in the aqua-scanner service then this will show 4 scanners total.
+The scanners will be listed on the right-hand side. By default, there will be 1 scanner included in aqua web. If you added three in the aqua-scanner service then this will show 4 scanners total.
 
 ![Scanner list](./images/aqua4.0-dcos-scanners.png)
 
 In DC/OS you can scale this up and down as needed on the Service page.
 
-To do so, click Service -> aqua-scanner -> Scale button. You can set this to a higher or lower value to increase or decrease number of scanners.
+To do so, click Service -> aqua-scanner -> Scale button. You can set this to a higher or lower value to increase or decrease the number of scanners.
 
 ![Scale scanners](./images/aqua4.0-dcos-scale.png)
 
